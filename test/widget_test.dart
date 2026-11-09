@@ -1,30 +1,23 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:gestor_notas/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('Muestra la información del estudiante', (tester) async {
+    await tester.pumpWidget(const MiAppNotas());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('Gestor de Calificaciones'), findsOneWidget);
+    expect(find.text('Rony'), findsOneWidget);
+    expect(find.text('Edad: 20 años'), findsOneWidget);
+    expect(find.text('Promedio: 2.0'), findsOneWidget);
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+  testWidgets('Evalúa al estudiante con profesor y padres', (tester) async {
+    await tester.pumpWidget(const MiAppNotas());
+
+    await tester.tap(find.text('Evaluar con Profesor y Padres'));
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.textContaining('En casa: preparate Rony'), findsOneWidget);
   });
 }
